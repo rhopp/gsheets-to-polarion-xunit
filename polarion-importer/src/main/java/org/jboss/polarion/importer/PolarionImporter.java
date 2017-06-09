@@ -5,8 +5,10 @@ import java.util.List;
 
 public class PolarionImporter {
 	
-	private static final String PROJECT_ID = "JBDS";
-	private static final String TEST_RUN_ID = "JBDS_11_0_AM1_SPRINT_132";
+	private static String PROJECT_ID = "JBDS";
+	
+	private static String TEST_RUN_ID;
+	private static final String TEST_RUN_ID_KEY = "testrun.id";
 	
 	private static String SHEET_ID;
 	private static final String SHEET_ID_KEY = "sheet.id";
@@ -26,6 +28,10 @@ public class PolarionImporter {
 		SHEET_ID = System.getProperty(SHEET_ID_KEY);
 		if (SHEET_ID == null) {
 			throw new RuntimeException(String.format("System property %s must be set", SHEET_ID_KEY));
+		}
+		TEST_RUN_ID = System.getProperty(TEST_RUN_ID_KEY);
+		if (TEST_RUN_ID == null) {
+			throw new RuntimeException(String.format("System property %s must be set", TEST_RUN_ID_KEY));
 		}
 	}
 

@@ -4,7 +4,9 @@ This is an auxiliary tool for Devstudio QE team to make our life and misery with
 
 ## How to run?
 1) Enable google sheets API in Google docs & obtain yoursef an client_secret.json file and put it into src/main/resources [1]
-2) run `mvn exec:java -Dsheet.id=<your_google_sheet_id>`
+
+2) run `mvn exec:java -Dsheet.id=<your_google_sheet_id> -Dtestrun.id=<test_run_id>`
+
 3) You are done! Desired XML should be written to standard output.
 
 Note:

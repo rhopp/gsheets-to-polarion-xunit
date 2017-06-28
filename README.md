@@ -5,7 +5,10 @@ This is an auxiliary tool for Devstudio QE team to make our life and misery with
 ## How to run?
 1) Enable google sheets API in Google docs & obtain yoursef an client_secret.json file and put it into src/main/resources [1]
 
-2) run `mvn exec:java -Dsheet.id=<your_google_sheet_id> -Dtestrun.id=<test_run_id>`
+2) Run 
+`mvn exec:java -Dsheet.id=<your_google_sheet_id> -Dtestrun.id=<test_run_id>  -Did.column.char=<char> -Dverdict.column.char=<char> -Dcomment.column.char=<char>`
+
+Chars can be in upper or lower case. There is some basic check in code for validity.
 
 3) You are done! Desired XML should be written to standard output.
 

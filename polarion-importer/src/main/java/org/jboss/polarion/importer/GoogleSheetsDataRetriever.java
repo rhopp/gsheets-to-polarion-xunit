@@ -115,13 +115,18 @@ public class GoogleSheetsDataRetriever {
 					if (isInBounds(row, verdictColumn)) {
 						TestCaseVerdict testCaseVerdict = new TestCaseVerdict((String) row.get(idColumn),
 								TestCaseVerdictEnum.lookup((String) row.get(verdictColumn)));
-						if (isInBounds(row, commentColumn)) {
-							testCaseVerdict.setComment((String) row.get(commentColumn));
-						} else {
-							System.out.println(
-									String.format("Unable to find comment for test case ID: %s", row.get(idColumn)));
+						if (testCaseVerdict.getVerdict() != null) {
+							if (isInBounds(row, commentColumn)) {
+								testCaseVerdict.setComment((String) row.get(commentColumn));
+							} else {
+								System.out.println(
+										String.format("Unable to find comment for test case ID: %s", row.get(idColumn)));
+							}
+							verdicts.add(testCaseVerdict);
+						}else {
+							System.out.println(String.format("Unable to find verdict for test case ID %s. Skipping.",
+									row.get(idColumn)));
 						}
-						verdicts.add(testCaseVerdict);
 					} else {
 						System.out.println(String.format("Unable to find verdict for test case ID %s. Skipping.",
 								row.get(idColumn)));

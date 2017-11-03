@@ -36,5 +36,9 @@ If you want to see the result of your import, you can subscribe to log. How to d
 Note:
 This is first version which expects google sheet in some specific format. If needed, we can make it more configurable.
 
+Link to logs:
+a) http://ops-qe-logstash-2.rhev-ci-vms.eng.rdu2.redhat.com:9981/polarion/
+b) http://ops-qe-logstash-2.rhev-ci-vms.eng.rdu2.redhat.com:9981/polarion/JBDS/
+
 
 [1] How to get it? See "Step 1" here: https://developers.google.com/sheets/api/quickstart/java

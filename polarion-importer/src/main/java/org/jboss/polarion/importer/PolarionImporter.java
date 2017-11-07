@@ -1,5 +1,8 @@
 package org.jboss.polarion.importer;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class PolarionImporter {
 				charToIntAlphabetically(ID_COLUMN_CHAR), charToIntAlphabetically(VERDICT_COLUMN_CHAR),
 				charToIntAlphabetically(COMMENT_COLUMN_CHAR));
 
-		System.out.println(XUnitXMLGenerator.generateXML(verdicts, PROJECT_ID, TEST_RUN_ID));
+		writeReport(XUnitXMLGenerator.generateXML(verdicts, PROJECT_ID, TEST_RUN_ID));
 
 	}
 
@@ -44,20 +47,39 @@ public class PolarionImporter {
 		}
 		ID_COLUMN_CHAR = parameterShouldBeChar(System.getProperty(ID_COLUMN_CHAR_KEY));
 		if (ID_COLUMN_CHAR == null) {
-			throw new RuntimeException(String.format("System property %s must be set", ID_COLUMN_CHAR_KEY));
-		}
+			ID_COLUMN_CHAR = 'C'; //default value
+		}		
 		VERDICT_COLUMN_CHAR = parameterShouldBeChar(System.getProperty(VERDICT_COLUMN_CHAR_KEY));
 		if (VERDICT_COLUMN_CHAR == null) {
-			throw new RuntimeException(String.format("System property %s must be set", VERDICT_COLUMN_CHAR_KEY));
+			VERDICT_COLUMN_CHAR = 'A'; //default value
 		}
 		COMMENT_COLUMN_CHAR = parameterShouldBeChar(System.getProperty(COMMENT_COLUMN_CHAR_KEY));
 		if (COMMENT_COLUMN_CHAR == null) {
-			throw new RuntimeException(String.format("System property %s must be set", ID_COLUMN_CHAR_KEY));
+			COMMENT_COLUMN_CHAR = 'B'; //default value
+		}
+	}
+	
+	private static void writeReport(String report) {
+		BufferedWriter output = null;
+		try {
+			File file = new File(TEST_RUN_ID + ".xml");
+			output = new BufferedWriter(new FileWriter(file));
+			output.write(report);
+		}catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(output != null) {
+				try {
+					output.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
 	private static Character parameterShouldBeChar(String value) {
-		if (value.length() != 1) {
+		if (value == null || value.length() != 1) {
 			return null;
 		}
 		Character c = value.charAt(0);

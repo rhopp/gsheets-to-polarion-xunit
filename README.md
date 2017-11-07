@@ -10,12 +10,18 @@ This is an auxiliary tool for Devstudio QE team to make our life and misery with
 
 Chars can be in upper or lower case. There is some basic check in code for validity.
 
-3) You are done! Desired XML should be written to standard output.
+Default values are:
+
+verdict.column.char = 'A';
+comment.column.char = 'B';
+id.column.char      = 'C'; 
+
+3) You are done! Desired XML should be written to file TEST_RUN_ID.xml.
 
 ## How to import to polarion?
-Once you have xunit xml file generated you can import them into polarion:
+Once you have xunit TEST_RUN_ID.xml file generated you can import them into polarion:
 ```
-curl -k -u "<username>:<password>" -X POST -F file=@/path/to/xunit.xml <polarion-instance-url>/import/xunit
+curl -k -u "<username>:<password>" -X POST -F file=@/path/to/TEST_RUN_ID.xml <polarion-instance-url>/import/xunit
 ```
 You should get response like:
 ```
@@ -26,7 +32,7 @@ You should get response like:
 <body bgcolor="white">
 <p>The following files are being imported:</p>
 <ul>
-<li>xunit.xml</li>
+<li>TEST_RUN_ID.xml</li>
 </ul>
 </body>
 </html>
@@ -39,6 +45,9 @@ This is first version which expects google sheet in some specific format. If nee
 Link to logs:
 a) http://ops-qe-logstash-2.rhev-ci-vms.eng.rdu2.redhat.com:9981/polarion/
 b) http://ops-qe-logstash-2.rhev-ci-vms.eng.rdu2.redhat.com:9981/polarion/JBDS/
+
+Example polarion instance url:
+https://polarion.engineering.redhat.com/polarion
 
 
 [1] How to get it? See "Step 1" here: https://developers.google.com/sheets/api/quickstart/java

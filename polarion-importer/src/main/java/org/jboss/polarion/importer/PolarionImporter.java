@@ -60,22 +60,13 @@ public class PolarionImporter {
 	}
 	
 	private static void writeReport(String report) {
-		BufferedWriter output = null;
-		try {
-			File file = new File(TEST_RUN_ID + ".xml");
-			output = new BufferedWriter(new FileWriter(file));
-			output.write(report);
-		}catch (IOException e) {
+		
+		try (BufferedWriter br = new BufferedWriter(new FileWriter(TEST_RUN_ID + ".xml"))) {
+			br.write(report);	
+		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			if(output != null) {
-				try {
-					output.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
+		
 	}
 
 	private static Character parameterShouldBeChar(String value) {
